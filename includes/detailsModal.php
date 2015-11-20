@@ -83,7 +83,7 @@ $size_array = explode(',',$sizestring);
         setTimeout(function(){
             jQuery('#details-modal').remove();
             jQuery('.modal-backdrop').remove();
-        },500);
+        },200);
     }
     
 </script>

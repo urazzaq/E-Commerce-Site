@@ -51,3 +51,8 @@ img.details{
 #footer{
     margin-top: 50px;
 }
+
+.table-auto{
+    width:auto;
+    margin:0 auto;
+}
