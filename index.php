@@ -1,9 +1,9 @@
 
 <?php
-include_once "head.php";
-include_once "navigation.php";
-include_once "Header.php";
-include_once 'conn.php';
+include_once "includes/head.php";
+include_once "includes/navigation.php";
+include_once "includes/header.php";
+include_once 'core/conn.php';
 
 $sql = "SELECT * FROM products WHERE featured = 1 ";
 $featured = $conn->query($sql);
@@ -12,8 +12,8 @@ if (!$featured) {
 }
 ?>
 <div class= "container-fluid">
-    <?php include_once "leftbar.php"; ?>
-    <?php include_once "DetailsModal.php";?>
+    <?php include_once "includes/leftbar.php"; ?>
+    <?php include_once "indludes/detailsModal.php";?>
     <!--Main Content -->
     <div class="col-md-8">
         <div class="row">
@@ -32,12 +32,12 @@ if (!$featured) {
         </div>
     </div>
     
-    <?php include_once "rightbar.php"; ?>
+    <?php include_once "includes/rightbar.php"; ?>
     
     <script> alert("WIP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Warning , Internet explorer not recomended, may cause placement issues\n\
 Disclaimer: This website is for academic and showcase pupososes only. we are not a real e-commerce site!");</script>
 
-    <?php include_once "footer.php"; ?>
+    <?php include_once "includes/footer.php"; ?>
 
 
 </body>

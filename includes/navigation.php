@@ -1,7 +1,7 @@
 <!-- Top Nav Bar -->
 
 <?php
-require_once 'conn.php';
+require_once 'core/conn.php';
 $sql = "SELECT * FROM catagories WHERE parent = 0 ";
 $parentQuery = $conn->query($sql);
 if (!$parentQuery) {

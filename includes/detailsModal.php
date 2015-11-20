@@ -1,6 +1,6 @@
 <!--Details Modal-->
 <?php
-require_once 'conn.php';
+require_once 'core/conn.php';
 $id = $_POST['id'];// access post variable of id
 $id = (int)$id;
 $sql = "SELECT * FROM products WHERE id = '$id'";
@@ -62,7 +62,6 @@ $size_array = explode(',',$sizestring);
                                                
                                             </select>
                                         </div>
-                                        <p>1</p>
                                         </div>
                                     </div>
                                 </form>
