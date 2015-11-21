@@ -1,4 +1,5 @@
 <?php
+//form validation function
 function display_errors($errors){
     $display = '<ul class="bg-danger">';
     foreach($errors as $error){
@@ -6,4 +7,8 @@ function display_errors($errors){
     }
     $display.='</ul>';
     return $display;
+}
+// sanitize input
+function sanitize($dirty){
+    return htmlentities($dirty,ENT_QUOTES,"UTF-8");
 }

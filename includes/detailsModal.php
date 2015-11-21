@@ -35,7 +35,7 @@ $size_array = explode(',',$sizestring);
                         <div class = "row">
                             <div class= "col-sm-6">
                                 <div class = "center-block">
-                                    <img src = "<?php echo $product['image']; ?>" height = 500px width = 500px alt = "<?php echo $product['title']; ?>" class = "details img-responsive" />
+                                    <img src = "<?php echo $product['image']; ?>"  alt = "<?php echo $product['title']; ?>" class = "details img-responsive img-modal" />
                                 </div>
                             </div>   
                             <div class= "col-sm-6">

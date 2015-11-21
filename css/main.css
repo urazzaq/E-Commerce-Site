@@ -40,8 +40,8 @@ body
 }
 
 .img-size{
-    width:200px;
-    height:200px;
+    width:auto;
+    height:250px;
 }
 
 img.details{
@@ -55,4 +55,9 @@ img.details{
 .table-auto{
     width:auto;
     margin:0 auto;
+}
+
+.img-modal{
+    width:auto;
+    height:400px;
 }

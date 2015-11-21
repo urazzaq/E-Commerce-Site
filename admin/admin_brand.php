@@ -2,14 +2,44 @@
 require_once "../core/conn.php";
 include_once "includes/admin_head.php";
 include_once "includes/admin_navigation.php";
+include_once '../helpers/helpers.php';
+
 //get brands from database
 $sql = "SELECT * FROM brand ORDER BY brand";
 $result = $conn->query($sql);
 if (!$result) {
         echo "invalid query".mysql_error();
     }
+
+//if add form is submitted
+$errors = array();
+if(isset($_POST['add_submit'])){
+    $brand = sanitize($_POST['brand']);
+    //check if brand is blank
+    if($brand ===''){
+        $errors[].='You must enter a brand!';
+    }
+    // check if brand exists in database
+    $sql = "SELECT * FROM brand WHERE brand = '$brand'";
+    $result = $conn ->query($sql);
+    $count = mysqli_num_rows($result);
+    if($count > 0){
+        $errors[].=$brand." already exists in database!";
+    }
+    // display errors
+    if(!empty($errors)){
+        echo display_errors($errors);
+   
+    }else{
+    //Add brand to database
+    $sql ="INSERT INTO brand (brand) VALUES ('$brand')";
+    $conn ->query($sql);
+    header('Location: admin_brand.php');//refresh page
     
+    }    
+}
 ?>
+
 <h2 class = 'text-center' >Brands</h2><hr>
 <!-- Brand Form -->
 <div class = 'text-center'>
@@ -21,7 +51,7 @@ if (!$result) {
         </div>       
     </form>
 </div><hr>
-<table class="table table-bordered table-striped table-auto">
+<table class="table table-bordered table-striped table-auto table-condensed">
     <thead>
         <th> </th><th>Brand</th><th> </th>  
     </thead>
