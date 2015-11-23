@@ -11,6 +11,7 @@ $parentQuery = $conn->query('SELECT * FROM categories WHERE parent = 0 ORDER BY 
 
 
 ?>    
+<!--add product form-->
 <h2 class="text-center">Add a New Product</h2><hr>
 <form action="admin_products.php?add=1" method="POST" enctype="multipart/form-data">
     <div class="form-group col-md-3">
@@ -67,6 +68,35 @@ $parentQuery = $conn->query('SELECT * FROM categories WHERE parent = 0 ORDER BY 
         <input type="submit" value="Add Product" class="form-control btn btn-success">
     </div><div class="clearfix"></div>
 </form>
+
+<!-- Modal -->
+<div class="modal fade" id="sizesModal" tabindex="-1" role="dialog" aria-labelledby="sizesModalLabel">
+  <div class="modal-dialog  modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="sizesModalLabel">Size & Quantitiy</h4>
+      </div>
+      <div class="modal-body">
+       <?php for($i=1;$i <= 12; $i++ ):?>
+          <div class="form-group col-md-4">
+              <label for="size<?php echo $i;?>">Size:</label>
+              <input type="text" name="size<?php echo $i;?>" id="size<?php echo $i;?>" value="" class='form-control'>
+          </div>
+           <div class="form-group col-md-2">
+              <label for="qty<?php echo $i;?>">Quantity:</label>
+              <input  type="number" name="qty<?php echo $i;?>" id="qty<?php echo $i;?>" value="" min="0" class='form-control'>
+          </div>
+          
+       <?php endfor;?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="updateSizes();$('#sizesModal').modal('toggle');return false">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 <?php }else{
     
 
@@ -82,6 +112,7 @@ if(isset($_GET['featured'])){
 
 
 ?>
+<!--products table-->
 <h2 class="text-center">Products</h2>
 <a href="admin_products.php?add=1" class="btn btn-success pull-right" id="add-product-button">Add Product</a>
 <div class="clearfix"></div>
