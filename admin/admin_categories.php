@@ -128,7 +128,7 @@ include_once '../helpers/helpers.php';
     
     <!--Category table -->
     <div class='col-md-12'>
-        <table class='table table-bordered '>
+        <table style="width:70%" class='table table-auto table-bordered table-condensed '>
             <thead class='bg-success'>
             <th>Category</th><th>Parent</th><th></th>
             </thead>

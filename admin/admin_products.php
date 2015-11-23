@@ -4,15 +4,102 @@ require_once "../core/conn.php";
 include_once "includes/admin_head.php";
 include_once "includes/admin_navigation.php";
 include_once '../helpers/helpers.php';
+//add product
+if (isset($_GET['add'])) {
+$brandQuery = $conn->query('SELECT * FROM brand ORDER BY brand');   
+$parentQuery = $conn->query('SELECT * FROM categories WHERE parent = 0 ORDER BY category');  
+
+
+?>    
+<h2 class="text-center">Add a New Product</h2><hr>
+<form action="admin_products.php?add=1" method="POST" enctype="multipart/form-data">
+    <div class="form-group col-md-3">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" name="title" id="title" value="<?php echo((isset($_POST['title']))?sanitize($_POST['title']):"");?>">
+    </div>
+    <div class="form-group col-md-3">
+         <label for="brand">Brand</label>
+         <select class="form-control" id="brand" name="brand" >
+             <option value=""<?php echo((isset($_POST['brand'])&& $_POST['brand'] == "" )?' selected':'');?>></option>
+             <?php while($brand = mysqli_fetch_assoc($brandQuery)):?>
+             <option value="<?php echo$brand['id'];?>"<?php echo((isset($_POST['brand'])&& $_POST['brand'] == $brand['id'] )?' selected':'');?>><?php echo $brand['brand'];?></option>
+             <?php endwhile;?>
+         </select>
+    </div>
+    <div class="form-group col-md-3">
+        <label for="parent">Parent Category</label>
+        <select class="form-control" id="parent" name="parent" >
+         <option value=""<?php echo((isset($_POST['parent'])&& $_POST['parent'] == "" )?' selected':'');?>></option>
+             <?php while($parent = mysqli_fetch_assoc($parentQuery)):?>
+             <option value="<?php echo$parent['id'];?>"<?php echo((isset($_POST['parent'])&& $_POST['parent'] == $parent['id'] )?' select':'');?>><?php echo $parent['category'];?></option>
+             <?php endwhile;?>    
+        </select>
+    </div>
+    <div class='form-group col-md-3'>
+        <label for="child">Child Category</label>
+        <select class="form-control" id="child" name="child" ></select>
+    </div>
+    <div class="form-group col-md-3">
+         <label for="price">Price</label>
+         <input type='text' id="price" name="price" class='form-control' value="<?php echo ((isset($_POST['price']))?sanitize($_POST['price']):'');?>">
+    </div>
+     <div class="form-group col-md-3">
+         <label for="price">List Price</label>
+         <input type='text' id="list_price" name="list_price" class='form-control' value="<?php echo ((isset($_POST['list_price']))?sanitize($_POST['list_price']):'');?>">
+    </div>
+    <div class="form-group col-md-3">
+        <label>Sizes and Quantity</label>
+        <button class='btn btn-default form-control' onclick="$('#sizesModal').modal('toggle');return false">Sizes and Quantity</button>
+    </div>
+    <div class="form-group col-md-3">
+         <label for="sizes">Sizes & Qty Preview</label>
+         <input class="form-control" type="text" name="sizes" id="sizes" value="<?php echo ((isset($_POST['sizes']))?$_POST['sizes']:'');?>" readonly>
+    </div>
+       <div class="form-group col-md-6">
+         <label for="photo">Product Photo</label>
+         <input type="file" name="photo" id="photo" class='form-control' value="Add Product Photo" >
+       </div>
+    <div class="form-group col-md-6">
+         <label for="description">Product Description</label>
+         <textarea type="text" name="description" id="description" class="form-control" rows="6"><?php echo ((isset($_POST['description']))?sanitize($_POST['description']):'');?></textarea>
+    </div>
+    <div class="form-group pull-right">
+        <input type="submit" value="Add Product" class="form-control btn btn-success">
+    </div><div class="clearfix"></div>
+</form>
+<?php }else{
+    
+
 $sql = "SELECT * FROM products WHERE deleted = 0";
 $presults = $conn->query($sql);
+if(isset($_GET['featured'])){
+    $id = (int)$_GET['id'];
+    $featured = (int)$_GET['featured'];
+    $fsql = "UPDATE products SET featured = '$featured' WHERE id='$id'";
+    $conn->query($fsql);    
+    header('Location: admin_products.php');//refresh page
+}
+
 
 ?>
-<h2 class="text-center">Products</h2><hr>
-<table class ="table table-bordered table-condensed table-striped">
+<h2 class="text-center">Products</h2>
+<a href="admin_products.php?add=1" class="btn btn-success pull-right" id="add-product-button">Add Product</a>
+<div class="clearfix"></div>
+<hr>
+<table style="width:70%" class="table table-auto table-bordered table-striped">
     <thead><th></th><th>Product</th><th>Price</th><th>Category</th><th>Featured</th><th>Sold</th></thead>
 <tbody>
-    <?php while($product = mysqli_fetch_assoc($presults)):?>
+    <?php while($product = mysqli_fetch_assoc($presults)):
+        $childID = $product['categories'];
+        $catSql = "SELECT * FROM categories WHERE id ='$childID'";
+        $result = $conn->query($catSql);  
+        $child = mysqli_fetch_assoc($result);
+        $parentID = $child['parent'];
+        $pSql = "SELECT * FROM categories WHERE id ='$parentID'";
+        $presult = $conn->query($pSql);  
+        $parent = mysqli_fetch_assoc($presult);
+        $category = $parent['category'].'~'.$child['category'];
+        ?>
     <tr>
         <td>
             <a href="admin_products.php?edit=<?php echo $product['id']?>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
@@ -20,17 +107,21 @@ $presults = $conn->query($sql);
         </td>
         <td><?php echo $product['title']?></td>
         <td><?php echo money($product['price'])?></td>
-        <td></td> 
+        <td>
+          <?php echo $category ?>  
+        </td> 
         <td>  
             <a href="admin_products.php?featured=<?php echo (($product['featured']==0)?'1':'0');?>&id=<?php echo $product['id'];?>" class="btn btn-xs btn-default" >
                 <span class="glyphicon glyphicon-<?php echo (($product['featured']==1)?'minus':'plus' ); ?>" ></span></a>
-                &nbsp <?php echo (($product['featured']==1)?'Featured Product':'');?>;
+                &nbsp <?php echo (($product['featured']==1)?'Featured Product':'');?>
         </td>
-        <td></td>
+        <td>
+            
+        </td>
     </tr>
     <?php endwhile;?>
 </tbody>
 </table>
 
-<?php include_once 'includes/admin_footer.php'; ?>
+<?php } include_once 'includes/admin_footer.php'; ?>
 

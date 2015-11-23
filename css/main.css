@@ -57,7 +57,16 @@ img.details{
     margin:0 auto;
 }
 
-.img-modal{
+#img-modal{
     width:auto;
     height:400px;
+}
+
+#add-product-button{
+    margin-top:-35px;
+}
+
+form {
+    width:70%;
+    margin: 0 auto;
 }
