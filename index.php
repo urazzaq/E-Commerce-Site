@@ -34,9 +34,7 @@ if (!$featured) {
     
     <?php include_once "includes/rightbar.php"; ?>
     
-    <script> alert("WIP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Warning , Internet explorer not recomended, may cause placement issues\n\
-Disclaimer: This website is for academic and showcase pupososes only. we are not a real e-commerce site!");</script>
-
+   
     <?php include_once "includes/footer.php"; ?>
 
 

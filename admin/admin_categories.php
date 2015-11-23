@@ -7,25 +7,66 @@ include_once '../helpers/helpers.php';
     $sql = "SELECT * FROM categories WHERE parent = 0 ";
     $result = $conn->query($sql);
     $errors = array();
+    $category ='';
+    $post_parent= '';
+    
+    //Edit Category
+    if(isset($_GET['edit']) && !empty($_GET['edit'])){
+    $edit_id = (int)$_GET['edit'];
+    $edit_id = sanitize($edit_id);
+    $edit_sql = "SELECT * FROM categories WHERE id='$edit_id'";
+    $edit_result = $conn->query($edit_sql);
+    $edit_category = mysqli_fetch_assoc($edit_result);
+       
+    }
+    //Delete catagory
+    if(isset($_GET['delete']) && !empty($_GET['delete'])){
+        $delete_id = (int)$_GET['delete'];
+        $delete_id = sanitize($delete_id);
+        $sql = "SELECT * FROM categories WHERE id='$delete_id'";
+        $result =  $conn->query($sql);
+        $category = mysqli_fetch_assoc($result);
+       
+//delete orphaned cases when deleting parent
+        if($category['parent']== 0){
+            $sql = "DELETE FROM categories WHERE parent = '$delete_id'";
+            $conn->query($sql);
+        }
+        $dsql = "DELETE FROM categories WHERE id='$delete_id'";
+        $conn->query($dsql);
+        header('Location: admin_categories.php');//refresh page
+              
+    }
    
     //Process Form
     if(isset($_POST) && !empty($_POST)){
-        $parent = sanitize($_POST['parent']);
+        $post_parent = sanitize($_POST['parent']);
         $category = sanitize($_POST['category']);
-        $sqlform = "SELECT * FROM categories WHERE category = '$category' AND parent = '$parent'";
+        $sqlform = "SELECT * FROM categories WHERE category = '$category' AND parent = '$post_parent'";
+       
+        //check if edit id is not same then edit
+        if(isset($_GET['edit'])){
+           $id = $edit_category['id'];
+           $sqlform = "SELECT * FROM categories WHERE category ='$category' AND parent ='$post_parent' AND id != '$id'"; 
+        }
+        
         $fresult = $conn->query($sqlform);
         $count = mysqli_num_rows($fresult);
+       
         //if category is blank
         if($category  === ''){
             $errors[].= "The category cannot be left blank";
         }
+       
         //if exists in the database
         if($count > 0){
             $errors[].= $category.' already exists';
         }
+      
         //Display Errors or Update Database
         if(!empty($errors)){
-          //display errors
+         
+            //display errors
             $display = display_errors($errors);?>
             <script>
                 $('document').ready(function(){
@@ -34,12 +75,27 @@ include_once '../helpers/helpers.php';
             </script>
             
         <?php } else {
-            $updatesql = "INSERT INTO categories (category,parent) VALUES ('$category','$parent')";
-            $conn->query($updatesql);
-            header('Location: admin_categories.php');//refresh page
+            //update database
+            $updatesql = "INSERT INTO categories (category,parent) VALUES ('$category','$post_parent')";
+             if(isset($_GET['edit'])){
+                 $updatesql = "UPDATE categories SET category='$category', parent='$post_parent' WHERE id='$edit_id'";
+             }
+             $conn->query($updatesql);
+             header('Location: admin_categories.php');//refresh page
         }  
     }
-    
+   //Edit body
+   $category_value ='';
+   $parent_value ='0';
+   if(isset($_GET['edit'])){
+       $category_value = $edit_category['category'];
+       $parent_value = $edit_category['parent'];
+   }else{
+       if(isset($_POST)){
+           $category_value= $category;
+           $parent_value=$post_parent;
+       }
+   }
 ?>
 
 <h2 class = 'text-center' >Categories</h2><hr>
@@ -47,24 +103,25 @@ include_once '../helpers/helpers.php';
     
     <!--Form -->
     <div class='col-md-12'>
-          <form class ='form' action='admin_categories.php' method="post">
-              <legend>Add a Category</legend>
+        <form class ='form' action="admin_categories.php<?php echo ((isset($_GET['edit']))?'?edit ='.$edit_id:'');?>" method="post">
+              <legend><?php echo ((isset($_GET['edit']))?'Edit' :'Add A');?> Category</legend>
               <div id ='errors'></div>
               <div class='form-group'>
               <label for="parent">Parent</label>
               <select class='form-control' name='parent' id='parent'>;
-              <option value='0'>Parent</option>
+              <option value="0" <?php echo (($parent_value == 0)?'selected ="selected"':'');?>>Parent</option>
                      <?php while($parent = mysqli_fetch_assoc($result)):?>
-                        <option value='<?php echo $parent['id']?>'><?php echo $parent['category']?></option>
+                        <option value="<?php echo $parent['id']?>"<?php echo (($parent_value == $parent['id'])? 'selected ="selected"':'');?>>
+                        <?php echo $parent['category']?></option>
                      <?php endwhile;?>
               </select>  
               </div> 
               <div class='form-group'>
                 <label for='category'>Category</label>
-                <input type='text' class='form-control' id='category' name='category'>
+                <input type='text' class='form-control' id='category' name='category' value ="<?php echo $category_value;?>">
               </div>
               <div class='form-group'>
-                <input type='submit' value='Add Catagory' class='btn btn-success'>
+                <input type='submit' value='<?php echo ((isset($_GET['edit']))?'Edit':'Add A');?> Catagory' class='btn btn-success'>
               </div>
           </form>       
     </div>
