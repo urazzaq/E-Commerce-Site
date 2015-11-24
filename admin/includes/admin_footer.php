@@ -2,7 +2,13 @@
             <footer class = "text-center" id="footer">&copy; Copyright 2015-2017 Umer's E-Commerce World</footer>	
             <script>
                 function updateSizes(){
-                    alert('updates sizes');
+                    var sizeString ='';
+                    for(var i=1;i<=6;i++){
+                        if($('#size'+i).val()!= ''){
+                            sizeString+= $('#size'+i).val()+':'+$('#qty'+i).val()+',';
+                        }     
+                    }
+                    $('#sizes').val(sizeString);
                 }
                 
                 function get_child_options(){
