@@ -13,4 +13,13 @@ edit products
 
 <b><h3>Main Page:</h3></b>
 
+Front page
+
 details modal
+
+<b><h3>Bugs:</h3></b>
+
+Selection bug with chrome
+
+edit product <- add product currently not submitting http status code 500 
+
