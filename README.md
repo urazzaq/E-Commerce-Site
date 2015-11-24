@@ -2,7 +2,7 @@
 E-Commerce 
 
 Work in progress
-#Current working features
+<b><h2>Current working features</h2></b>
 <b><h3>Admin Area:</h3></b>
 
 edit category
