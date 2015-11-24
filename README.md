@@ -2,9 +2,15 @@
 E-Commerce 
 
 Work in progress
-#current working features
+#Current working features
+Admin Area:
+
 edit category
+
 edit brand
+
 edit products
-main page
+
+Main Page:
+
 details modal
