@@ -7,7 +7,7 @@ Intends to be a fully functioning e-commerce site with payment system and admin 
 
 **product cart
 
-<b><h2>Current working features</h2></b>
+#Current working features
 <b><h3>Admin Area:</h3></b>
 
 edit category
@@ -22,7 +22,7 @@ Front page
 
 details modal
 
-<b><h3>Bugs:</h3></b>
+#Bugs:
 
 Selection bug with chrome
 
