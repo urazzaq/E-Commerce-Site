@@ -3,9 +3,9 @@ Intends to be a fully functioning e-commerce site with payment system and admin 
 
 <h3><b>Work in progress:</b></h3>
 
-user sessions and registration
+**user sessions and registration
 
-product cart
+**product cart
 
 <b><h2>Current working features</h2></b>
 <b><h3>Admin Area:</h3></b>
