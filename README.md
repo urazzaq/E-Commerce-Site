@@ -1,5 +1,5 @@
 # E-Commerce-Site
-Intends to be a fully function e-commerce site with payment system and admin area
+Intends to be a fully functioning e-commerce site with payment system and admin area
 
 <h3><b>Work in progress:</b></h3>
 
