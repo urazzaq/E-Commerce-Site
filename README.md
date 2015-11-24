@@ -2,9 +2,9 @@
 E-Commerce 
 
 Work in progress
---current working features
-#edit category
-#edit brand
-#edit products
-#main page//main front page
-#details modal
+#current working features
+-edit category
+-edit brand
+-edit products
+-main page
+-details modal
