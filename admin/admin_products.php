@@ -8,7 +8,7 @@ if (isset($_GET['add'])) {
     $brandQuery = $conn->query('SELECT * FROM brand ORDER BY brand');
     $parentQuery = $conn->query('SELECT * FROM categories WHERE parent = 0 ORDER BY category');
 //build array 
-    if ($_POST){
+    if (isset($_POST)){
         //sanitize inputs
         $title =  sanitize($_POST['title']);
         $brand =  sanitize($_POST['brand']);
@@ -77,17 +77,21 @@ if (isset($_GET['add'])) {
                 echo display_errors($errors);
             } else {
                 //upload file and insert into database
-                move_uploaded_file($tmpLoc, $uploadPath);
-                $insertSql = "INSERT INTO products (title,price,list_price,brand,categories,sizes,image,description) VALUES ('$title','$price','$list_price','$brand','$categories','$sizes','$dbpath','$description')";
+                
+                if(move_uploaded_file($tmpLoc, $uploadPath)){
+                echo "file uploaded Successfully";
+                }else{
+                    $errors[].= "file did not upload";
+                }
+                $insertSql = "INSERT INTO products (`title`,`price`,`list_price`,`brand`,`categories`,`image`,`description`,`sizes`) VALUES ('$title','$price','$list_price','$brand','$categories','$dbpath','$description','$sizes')";
                 $conn->query($insertSql);
-               
                 header('Location: admin_products.php'); //refresh page
             }    
     }
         ?>    
         <!--add product form-->
         <h2 class="text-center">Add New Product</h2><hr>
-        <form action="admin_products.php?add=1" method="POST" enctype="multipart/form-data">
+        <form action="admin_products.php?add=1" method="post" enctype="multipart/form-data">
             <div class="form-group col-md-3">
                 <label for="title">Title</label>
                 <input type="text" class="form-control" name="title" id="title" value="<?php echo((isset($_POST['title'])) ? sanitize($_POST['title']) : ""); ?>">
@@ -95,18 +99,18 @@ if (isset($_GET['add'])) {
             <div class="form-group col-md-3">
                 <label for="brand">Brand</label>
                 <select class="form-control" id="brand" name="brand" >
-                    <option value=""<?php echo((isset($_POST['brand']) && $_POST['brand'] == "" ) ? ' selected' : ''); ?>></option>
+                    <option value="" <?php echo((isset($_POST['brand']) && $_POST['brand'] == "" ) ? ' selected' : ''); ?> ></option>
         <?php while ($brand = mysqli_fetch_assoc($brandQuery)): ?>
-                        <option value="<?php echo$brand['id']; ?>"<?php echo((isset($_POST['brand']) && $_POST['brand'] == $brand['id'] ) ? ' selected' : ''); ?>><?php echo $brand['brand']; ?></option>
+                        <option value="<?php echo$brand['id']; ?>" <?php echo((isset($_POST['brand']) && $_POST['brand'] == $brand['id'] ) ? ' selected' : ''); ?> ><?php echo $brand['brand']; ?></option>
                     <?php endwhile; ?>
                 </select>
             </div>
             <div class="form-group col-md-3">
                 <label for="parent">Parent Category</label>
                 <select class="form-control" id="parent" name="parent" >
-                    <option value=""<?php echo((isset($_POST['parent']) && $_POST['parent'] == "" ) ? ' selected' : ''); ?>></option>
+                    <option value="" <?php echo((isset($_POST['parent']) && $_POST['parent'] == "" ) ? ' selected' : ''); ?> ></option>
         <?php while ($parent = mysqli_fetch_assoc($parentQuery)): ?>
-                        <option value="<?php echo$parent['id']; ?>"<?php echo((isset($_POST['parent']) && $_POST['parent'] == $parent['id'] ) ? ' select' : ''); ?>><?php echo $parent['category']; ?></option>
+                        <option value="<?php echo$parent['id']; ?>" <?php echo((isset($_POST['parent']) && $_POST['parent'] == $parent['id'] ) ? ' select' : ''); ?> ><?php echo $parent['category']; ?></option>
                     <?php endwhile; ?>    
                 </select>
             </div>
@@ -183,8 +187,8 @@ if (isset($_GET['add'])) {
         $sql = "SELECT * FROM products WHERE deleted = 0";
         $presults = $conn->query($sql);
         if (isset($_GET['featured'])) {
-            $id = (int) $_GET['id'];
-            $featured = (int) $_GET['featured'];
+            $id = (int)$_GET['id'];
+            $featured = (int)$_GET['featured'];
             $fsql = "UPDATE products SET featured = '$featured' WHERE id='$id'";
             $conn->query($fsql);
             header('Location: admin_products.php'); //refresh page

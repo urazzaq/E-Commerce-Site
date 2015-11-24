@@ -9,8 +9,10 @@ if (!$parentQuery) {
 }
 ?>
 <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container" id = "top" >
-        <a href="index.php" class="navbar-brand">Umer's E-Commerce World</a>
+    <div class="container" id = "top" > 
+       
+        <a href="index.php" class="navbar-brand">Umer's E-Commerce World</a> 
+       
         <ul class="nav navbar-nav">
             <?php
             //query dynamic menu items
@@ -32,7 +34,7 @@ if (!$parentQuery) {
                     </ul>
                 </li>
             <?php endwhile; ?>
+                <li><a href ="./admin/admin_index.php"><span class="glyphicon glyphicon-lock"></span>Admin Area</a></li>
         </ul>
-
     </div>
 </nav>

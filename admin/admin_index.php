@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 require_once '../core/conn.php';
 include_once "includes/admin_head.php";
 include_once "includes/admin_navigation.php";

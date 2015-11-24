@@ -37,6 +37,6 @@ if (!$featured) {
    
     <?php include_once "includes/footer.php"; ?>
 
-<script>alert('Not a real E-commerce site! for showcase purposed only WIP,View in IE11 instead Chrome may caused issues with form selection "being fixed"');</script>
+<script>alert('Not a real E-commerce site! for showcase purposes only WIP,View in IE11 instead Chrome may caused issues with form selection "being fixed"');</script>
 </body>
 </html>
