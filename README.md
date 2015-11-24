@@ -1,7 +1,9 @@
 # E-Commerce-Site
 E-Commerce 
 
-Work in progress
+</h3></b>Work in progress:</h3></b>
+user sessions and registration
+product cart
 <b><h2>Current working features</h2></b>
 <b><h3>Admin Area:</h3></b>
 
