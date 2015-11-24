@@ -32,6 +32,7 @@ if (!$parentQuery) {
                     </ul>
                 </li>
             <?php endwhile; ?>
+                <li class="left"><a href ="./admin/admin_index.php"><span class="glyphicon glyphicon-lock"></span>Administrator Area</li>
         </ul>
 
     </div>

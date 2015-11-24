@@ -80,7 +80,6 @@ if (isset($_GET['add'])) {
                 move_uploaded_file($tmpLoc, $uploadPath);
                 $insertSql = "INSERT INTO products (title,price,list_price,brand,categories,sizes,image,description) VALUES ('$title','$price','$list_price','$brand','$categories','$sizes','$dbpath','$description')";
                 $conn->query($insertSql);
-               
                 header('Location: admin_products.php'); //refresh page
             }    
     }
