@@ -4,7 +4,7 @@
                 function updateSizes(){
                     var sizeString ='';
                     for(var i=1;i<=6;i++){
-                        if($('#size'+i).val()!= ''){
+                        if($('#size'+i).val()!== ''){
                             sizeString+= $('#size'+i).val()+':'+$('#qty'+i).val()+',';
                         }     
                     }

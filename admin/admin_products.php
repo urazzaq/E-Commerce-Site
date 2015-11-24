@@ -8,7 +8,7 @@ if (isset($_GET['add'])) {
     $brandQuery = $conn->query('SELECT * FROM brand ORDER BY brand');
     $parentQuery = $conn->query('SELECT * FROM categories WHERE parent = 0 ORDER BY category');
 //build array 
-    if (isset($_POST)){
+    if ($_POST){
         //sanitize inputs
         $title =  sanitize($_POST['title']);
         $brand =  sanitize($_POST['brand']);
@@ -21,7 +21,7 @@ if (isset($_GET['add'])) {
         
         $errors = array();
         if (!empty($_POST['sizes'])) {
-            $sizeString = santitize($_POST['size']);
+            $sizeString = sanitize($_POST['size']);
             $sizeString = rtrim($sizeString, ',');
             $sizesArray = explode(',', $sizeString);
             $sArray = array();

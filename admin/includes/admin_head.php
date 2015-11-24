@@ -14,6 +14,10 @@
         <script src="../js/bootstrap.min.js"></script>
 
     </head>
-
+    <?php
+    error_reporting(E_ALL);
+    ini_set('display_errors', '1');
+    ?>
+    
     <body>
         <div class ="container-fluid">
