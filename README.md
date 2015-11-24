@@ -24,7 +24,5 @@ details modal
 
 #Bugs:
 
-Selection bug with chrome
-
-edit product <- add product currently not submitting http status code 500 
+uploading file to server
 
