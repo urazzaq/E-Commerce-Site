@@ -24,5 +24,5 @@ details modal
 
 #Bugs:
 
-off by one error in detail modal
+--off by one error in detail modal--> Not resolved
 
