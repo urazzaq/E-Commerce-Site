@@ -13,7 +13,7 @@ if (!$featured) {
 ?>
 <div class= "container-fluid">
     <?php include_once "includes/leftbar.php"; ?>
-    <?php include_once "indludes/detailsModal.php";?>
+    <?php include_once "detailsModal.php";?>
     <!--Main Content -->
     <div class="col-md-8">
         <div class="row">
@@ -25,9 +25,10 @@ if (!$featured) {
                     <img src="<?php echo $products['image']; ?>" alt ="<?php $products['title']; ?>" class = "img-size" />
                     <p class="list-price text-danger">List Price<s> <?php echo$products['list_price']; ?></s></p>
                     <p class="price">Our Price: $<?php echo$products['price']; ?></p>
-                    <button type = "button" class ="btn btn-sm btn-success" onclick="detailsModal(<?php echo $products['id']; ?>)">Details</button>
+                    <button type = "button"  class ="btn btn-sm btn-success" onclick="detailsModal(<?php echo $products['id']; ?>)">Details</button>
                 </div>
-            <?php endwhile; ?>
+          
+            <?php endwhile; ?>  
 
         </div>
     </div>

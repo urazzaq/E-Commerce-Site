@@ -58,8 +58,10 @@ if (isset($_GET['add'])) {
             $fileSize = $photo['size'];
             $allowed = array('png','jpg','jpeg','gif');
             $uploadName = md5(microtime()).'.'.$fileExt; echo $uploadName."<br>";
-            $uploadPath ="../images/".$uploadName; echo $uploadPath."<br>";
+         
+            $uploadPath = $_SERVER['DOCUMENT_ROOT']."/images/".$uploadName; echo $uploadPath."<br>";
             $dbpath = "/images/".$uploadName; echo $dbpath."<br>";
+           
             if($mimeType!='image'){
                 $errors[].='The File must be an Image';
             }
@@ -79,13 +81,14 @@ if (isset($_GET['add'])) {
                 //upload file and insert into database
                 
                 if(move_uploaded_file($tmpLoc, $uploadPath)){
+                $insertSql = "INSERT INTO products (`title`,`price`,`list_price`,`brand`,`categories`,`image`,`description`,`sizes`) VALUES ('$title','$price','$list_price','$brand','$categories','$dbpath','$description','$sizes')";
+                $conn->query($insertSql);
+                header('Location: admin_products.php'); //refresh page
                 echo "file uploaded Successfully";
                 }else{
                     $errors[].= "file did not upload";
                 }
-                $insertSql = "INSERT INTO products (`title`,`price`,`list_price`,`brand`,`categories`,`image`,`description`,`sizes`) VALUES ('$title','$price','$list_price','$brand','$categories','$dbpath','$description','$sizes')";
-                $conn->query($insertSql);
-                header('Location: admin_products.php'); //refresh page
+                
             }    
     }
         ?>    

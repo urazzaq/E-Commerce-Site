@@ -9,11 +9,13 @@
 
 <!--Details Modal Function-->
 <script> 
-    
+        
+
     function detailsModal(id){
+    
         var data ={"id":id };
             jQuery.ajax({
-                url:'./DetailsModal.php',
+                url:'./detailsModal.php',
                 method : "post",
                 data : data,
                 success : function(data){

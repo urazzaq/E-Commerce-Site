@@ -1,7 +1,7 @@
 <!--Details Modal-->
 <?php
-require_once 'core/conn.php';
-$id = $_POST['id'];// access post variable of id
+require_once './core/conn.php';
+$id = $_POST['id'];
 $id = (int)$id;
 $sql = "SELECT * FROM products WHERE id = '$id'";
 $result = $conn->query($sql);
@@ -21,7 +21,7 @@ $size_array = explode(',',$sizestring);
 ?>
 <!--Start Buffer-->
 <?php ob_start(); ?>
-<div class = "modal fade details-1" id="details-modal" tabindex="-1" role="dialog" aria-labelledby="details-1" aria-hidden="true">
+<div class = "modal fade details-1"  data-backdrop="static" data-keyboard="false" id="details-modal" tabindex="-1" role="dialog" aria-labelledby="details-1" aria-hidden="true">
     <div class = "modal-dialog modal-lg">
         <div class = "modal-content">
                 <div class = "modal-header">
@@ -35,7 +35,7 @@ $size_array = explode(',',$sizestring);
                         <div class = "row">
                             <div class= "col-sm-6">
                                 <div class = "center-block">
-                                    <img src = "<?php echo $product['image']; ?>" width="300" height="400"  alt = "<?php echo $product['title']; ?>" class = "details img-responsive" />
+                                    <img src = "<?php echo $product['image']; ?>" width="auto" height="500"  alt = "<?php echo $product['title']; ?>" class = "details img-responsive" />
                                 </div>
                             </div>   
                             <div class= "col-sm-6">
@@ -70,7 +70,7 @@ $size_array = explode(',',$sizestring);
                     </div>	
                 </div>
                 <div class ="modal-footer">
-                    <button class = "btn btn-default" onclick="closeModal()">Close</button>
+                    <button class = "btn btn-default" id="close" onclick="closeModal()">Close</button>
                     <button class = "btn btn-warning" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span>Add to Cart</button>
                 </div>
         </div>	
@@ -78,16 +78,20 @@ $size_array = explode(',',$sizestring);
 </div>
 <!--Close modal function-->
 <script>
+
+        
     function closeModal(){
-        jQuery('#details-modal').modal('hide');
+        $('#details-modal').modal('hide');
         setTimeout(function(){
-            jQuery('#details-modal').remove();
-            jQuery('.modal-backdrop').remove();
-        },200);
+            $('#details-modal').remove();
+            $('.modal-backdrop').remove();
+        },500);
     }
     
 </script>
     
 
-<?php echo ob_get_clean(); ?>
+<?php echo ob_get_clean();
+
+?>
 <!--End Buffer-->
