@@ -24,5 +24,7 @@ details modal
 
 #Bugs:
 
-uploading file to server
+uploading file to server --> not finding correct path
+
+off by one error in detail modal
 
