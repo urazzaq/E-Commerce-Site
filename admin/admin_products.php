@@ -33,7 +33,7 @@ if(isset($_GET['edit'])){
         $image_url =$_SERVER['DOCUMENT_ROOT'].$product['image'];
         unlink($image_url);
         $conn->query("UPDATE products SET image='' WHERE id='$edit_id'");
-        header("Location: admin_products.php?edit='$edit_id'"); //refresh page
+        header('Location: admin_products.php?edit='.$edit_id); //refresh page
     }
     
     $title = ((isset($_POST['title'])&& $_POST['title']!= "")?sanitize($_POST['title']):$product['title']);
@@ -102,7 +102,7 @@ if(isset($_GET['edit'])){
                 $errors[].='The File must be an Image';
             }
             if(!in_array($fileExt,$allowed)){
-                $error[].="The file extension must be a png, jpeg, jpg, gif.";
+                $errors[].="The file extension must be a png, jpeg, jpg, gif.";
             }
             if($fileSize > 15000000){
                 $errors[].="file size must be under 15MB";
@@ -119,7 +119,7 @@ if(isset($_GET['edit'])){
                 $insertSql = "INSERT INTO products (`title`,`price`,`list_price`,`brand`,`categories`,`image`,`description`,`sizes`) VALUES ('$title','$price','$list_price','$brand','$category','$dbpath','$description','$sizes')";
                 //edit image
                 if(isset($_GET['edit'])){
-                $insertSql = "UPDATE products SET title='$title, price='$price' ,list_price='$list_price', brand='$brand',categories='$category',image='$dbpath',description='$description', sizes='$sizes' WHERE id='$edit_id' " ;
+                $insertSql = "UPDATE products SET title = '$title', price = '$price', list_price = '$list_price', brand = '$brand', categories = '$category', image = '$dbpath', description = '$description', sizes = '$sizes' WHERE id = '$edit_id' ";
                 }
                 $conn->query($insertSql);
                 header('Location: admin_products.php'); //refresh page
@@ -175,6 +175,7 @@ if(isset($_GET['edit'])){
                 <input class="form-control" type="text" name="sizes" id="sizes" value="<?php echo $sizes; ?>" readonly>
             </div>
             <div class="form-group col-md-6">
+               
                 <?php if($saved_image!=''): ?>
                 <div class="saved-image">
                     <img src="<?php echo $saved_image?>"alt="saved_image"/><br>
@@ -184,6 +185,7 @@ if(isset($_GET['edit'])){
                 <label for="photo">Product Photo</label>
                 <input type="file" name="photo" id="photo" class='form-control' value="Add Product Photo" >
                 <?php endif;?>
+           
             </div>
             <div class="form-group col-md-6">
                 <label for="description">Product Description</label>

@@ -32,7 +32,6 @@ if (!$featured) {
 
         </div>
     </div>
-     <?php include_once "detailsModal.php";?>
     <?php include_once "includes/rightbar.php"; ?>
     
    

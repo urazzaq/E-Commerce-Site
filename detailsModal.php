@@ -86,7 +86,7 @@ $size_array = explode(',',$sizestring);
     function closeModal(){
         $('#details-modal').modal('hide');
         setTimeout(function(){
-            $('#details-modal').removeData("bs.modal");
+            $('#details-modal').remove();
             $('.modal-backdrop').remove();
         },500);
     }
