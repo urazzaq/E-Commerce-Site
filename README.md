@@ -10,11 +10,11 @@ Intends to be a fully functioning e-commerce site with payment system and admin 
 #Current working features
 <b><h3>Admin Area:</h3></b>
 
-edit category
+add/edit/remove  category
 
-edit brand
+add/edit/remove  brand
 
-edit products
+add/edit/remove products
 
 <b><h3>Main Page:</h3></b>
 
@@ -24,5 +24,5 @@ details modal
 
 #Bugs:
 
---off by one error in detail modal--> Not resolved
+none at the momen
 
