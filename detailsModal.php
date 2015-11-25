@@ -1,6 +1,7 @@
 <!--Details Modal-->
 <?php
 require_once './core/conn.php';
+
 $id = $_POST['id'];
 $id = (int)$id;
 $sql = "SELECT * FROM products WHERE id = '$id'";
@@ -76,6 +77,8 @@ $size_array = explode(',',$sizestring);
         </div>	
     </div>
 </div>
+<?php echo ob_get_clean();?>
+<!--End Buffer-->
 <!--Close modal function-->
 <script>
 
@@ -83,7 +86,7 @@ $size_array = explode(',',$sizestring);
     function closeModal(){
         $('#details-modal').modal('hide');
         setTimeout(function(){
-            $('#details-modal').remove();
+            $('#details-modal').removeData("bs.modal");
             $('.modal-backdrop').remove();
         },500);
     }
@@ -91,7 +94,3 @@ $size_array = explode(',',$sizestring);
 </script>
     
 
-<?php echo ob_get_clean();
-
-?>
-<!--End Buffer-->

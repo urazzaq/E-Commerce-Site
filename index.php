@@ -13,7 +13,7 @@ if (!$featured) {
 ?>
 <div class= "container-fluid">
     <?php include_once "includes/leftbar.php"; ?>
-    <?php include_once "detailsModal.php";?>
+   
     <!--Main Content -->
     <div class="col-md-8">
         <div class="row">
@@ -32,7 +32,7 @@ if (!$featured) {
 
         </div>
     </div>
-    
+     <?php include_once "detailsModal.php";?>
     <?php include_once "includes/rightbar.php"; ?>
     
    

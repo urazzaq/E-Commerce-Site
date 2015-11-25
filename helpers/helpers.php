@@ -16,3 +16,4 @@ function sanitize($dirty){
 function money($number){
     return '$'.number_format($number,2);
 }
+
