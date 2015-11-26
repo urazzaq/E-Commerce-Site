@@ -1,4 +1,7 @@
-
+<?php
+    error_reporting(E_ALL);
+    ini_set('display_errors', '1');
+    ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12,12 +15,9 @@
         <meta name="viewport" content="width= device-width, initial-scale=1,user-scalable=no" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
-
+        <link async href="http://fonts.googleapis.com/css?family=Coda"  rel="stylesheet" type="text/css"/>
     </head>
-    <?php
-    error_reporting(E_ALL);
-    ini_set('display_errors', '1');
-    ?>
+    
     
     <body>
         <div class ="container-fluid">

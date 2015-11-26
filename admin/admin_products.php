@@ -3,6 +3,14 @@ require_once "../core/conn.php";
 include_once "includes/admin_head.php";
 include_once "includes/admin_navigation.php";
 include_once '../helpers/helpers.php';  
+//delete product by setting delete field to 1
+
+if(isset($_GET['delete'])){
+    $id = sanitize($_GET['delete']);
+    $conn->query("UPDATE products SET deleted = 1 WHERE id='$id'");
+     header('Location: admin_products.php'); //refresh page
+}
+
 $dbpath ='';   
 $insertSql ='';
 //add product
