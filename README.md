@@ -7,6 +7,8 @@ Intends to be a fully functioning e-commerce site with payment system and admin 
 
 **product cart
 
+**Featured product carousel
+
 #Current working features
 <b><h3>Admin Area:</h3></b>
 
@@ -24,5 +26,5 @@ details modal
 
 #Bugs:
 
-none at the momen
+none at the moment
 
