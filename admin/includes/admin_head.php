@@ -19,5 +19,5 @@
     </head>
     
     
-    <body>
+    <body >
         <div class ="container-fluid">

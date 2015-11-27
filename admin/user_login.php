@@ -1,12 +1,17 @@
 
 <?php
 require_once "../core/conn.php";
-
+require_once '../helpers/helpers.php';  
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-$userPassword = 'password';
-$hashed = password_hash($userPassword, PASSWORD_DEFAULT);
+
+
+$email = ((isset($_POST['email']))? sanitize($_POST['email']):'');
+$email = trim($email);
+$password = ((isset($_POST['password']))? sanitize($_POST['password']):'');
+$password=trim($password);
+$errors = array();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,13 +30,56 @@ $hashed = password_hash($userPassword, PASSWORD_DEFAULT);
     </head>
 
 
-    <body id = 'admin-body' >
+    <body class = 'admin-body' >
         <div class ="container-fluid">
-
-
-
             <div id="login-form">
-                <div></div>
+                
+                <div>
+                  <?php
+                  
+                  if($_POST){
+                     //form validation
+                      if(empty($_POST['email'] ) || empty($_POST['password']) ){
+                          $errors[].= 'Email and Password Required';
+                      }
+                      
+                      //validate email
+                      if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
+                          $errors[].="You must enter a valid email";
+                      }
+                      
+                      //password is less then 6
+                      if(strlen($password)< 6){
+                          $errors[].="Password must be atleast 6 characters";
+                      }
+                     
+                      //vaildate if user exist
+                      $query = $conn->query("SELECT * FROM users WHERE email = '$email'");
+                      $user = mysqli_fetch_assoc($query);
+                      $userCount = mysqli_num_rows($query);
+                 
+                      if($userCount ==0){
+                      $errors[].="User ".$email." does not exist";
+                      }
+                      //if password matches database
+                      if(!password_verify($password, $user['password'])){
+                      $errors[].="The password does not match our records";    
+                      }
+                      
+                      //check for errors
+                      if(!empty($errors)){
+                          echo display_errors($errors);  
+                      }else{
+                          //log user in
+                          $user_id = $user['id'];
+                          login($user_id);
+                          
+                      }
+                  }
+                  ?>  
+                    
+                </div>
+                
                 <h2 class="text-center">Login</h2><hr>
                 <form action="user_login.php" method="post">
                     <div class="form-group">
@@ -51,3 +99,5 @@ $hashed = password_hash($userPassword, PASSWORD_DEFAULT);
 
 
             <?php include_once 'includes/admin_footer.php'; ?>
+            <script>alert('USERNAME: tester@test.com \nPASSWORD: password');</script>
+                

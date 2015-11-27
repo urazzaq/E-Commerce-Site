@@ -4,7 +4,10 @@ include_once "includes/admin_head.php";
 include_once "includes/admin_navigation.php";
 include_once '../helpers/helpers.php';  
 //delete product by setting delete field to 1
-
+//verify login
+if(!logged_in()){
+    login_error();
+}
 if(isset($_GET['delete'])){
     $id = sanitize($_GET['delete']);
     $conn->query("UPDATE products SET deleted = 1 WHERE id='$id'");

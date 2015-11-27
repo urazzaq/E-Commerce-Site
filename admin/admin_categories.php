@@ -3,7 +3,10 @@ require_once "../core/conn.php";
 include_once "includes/admin_head.php";
 include_once "includes/admin_navigation.php";
 include_once '../helpers/helpers.php';
-
+//verify login
+if(!logged_in()){
+    login_error();
+}
     $sql = "SELECT * FROM categories WHERE parent = 0 ";
     $result = $conn->query($sql);
     $errors = array();

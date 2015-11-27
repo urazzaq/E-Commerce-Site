@@ -37,6 +37,6 @@ if (!$featured) {
    
     <?php include_once "includes/footer.php"; ?>
 
-<script>alert('Not a real E-commerce site! for showcase purposes only WIP');</script>
+<script>alert('Not a real E-commerce site! for showcase purposes only WIP \n ##Working Modules \n\nMain Page: \nDetails Module \n\nAdmin Area: \nUser Login \nEdit Catagory \nEdit Brand \nEdit Product \n');</script>
 </body>
 </html>
