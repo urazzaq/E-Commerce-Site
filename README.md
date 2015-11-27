@@ -12,9 +12,11 @@ Intends to be a fully functioning e-commerce site with payment system and admin 
 #Current working features
 <b><h3>Admin Area:</h3></b>
 
-add/edit/remove  category
+User login/Permissions
 
-add/edit/remove  brand
+add/edit/remove category
+
+add/edit/remove brand
 
 add/edit/remove products
 
