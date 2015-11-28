@@ -48,7 +48,7 @@ function login_error($url = 'user_login.php'){
 //user permissions
 function permissions($permission){
     global $user_data;
-    $permissions = explode(',',$user_data['permissions']);    var_dump($permissions);
+    $permissions = explode(',',$user_data['permissions']);    
     if(in_array($permission,$permissions,true)){
         return false;
     }else{
@@ -60,4 +60,8 @@ function permission_error($url){
     $_SESSION["error_flash"] = "You do not have permissions to access that page";
     header('Location: '.$url);
    
+}
+
+function date_formatter($date){
+    return date("M d, Y h:i A",strtotime($date));
 }

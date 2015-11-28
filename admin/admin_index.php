@@ -7,9 +7,9 @@ if(!logged_in()){
     login_error();
 }
 //verify persmissions
-if(!permissions("admin")){
-    permission_error('admin_brand.php');
-}
+//if(!permissions("admin")){
+//    permission_error('admin_brand.php');
+//}
 include_once "includes/admin_head.php";
 include_once "includes/admin_navigation.php";
 
