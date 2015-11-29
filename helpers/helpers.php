@@ -1,67 +1,83 @@
 <?php
+
 //form validation function
-function display_errors($errors){
+function display_errors($errors) {
     $display = '<ul class="bg-danger">';
-    foreach($errors as $error){
-        $display.='<li class = "text-danger">'.$error.'</li>';           
+    foreach ($errors as $error) {
+        $display.='<li class = "text-danger">' . $error . '</li>';
     }
     $display.='</ul>';
     return $display;
 }
+
 // sanitize input
-function sanitize($dirty){
-    return htmlentities($dirty,ENT_QUOTES,"UTF-8");
+function sanitize($dirty) {
+    return htmlentities($dirty, ENT_QUOTES, "UTF-8");
 }
 
 //currency formetter
-function money($number){
-    return '$'.number_format($number,2);
-    
+function money($number) {
+    return '$' . number_format($number, 2);
 }
+
 //login function
-function login($_id){
+function login($_id) {
     $_SESSION['user_session'] = $_id;
     global $conn;
     $date = date("Y-m-d H:i:s");
     $conn->query("UPDATE users SET last_login = '$date' WHERE id='$_id'");
     $_SESSION["success_flash"] = "You are now logged in";
     header("Location: admin_index.php");
-    
 }
 
 //verify login
-function logged_in(){
-    if(isset($_SESSION['user_session']) && $_SESSION['user_session'] > 0){
+function logged_in() {
+    if (isset($_SESSION['user_session']) && $_SESSION['user_session'] > 0) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
 
 //error if not logged in
-function login_error($url = 'user_login.php'){
+function login_error($url = 'user_login.php') {
     $_SESSION["error_flash"] = "You must login to access that page";
-    header('Location: '.$url);
-   
+    header('Location: ' . $url);
 }
 
 //user permissions
-function permissions($permission){
+function permissions($permission) {
     global $user_data;
-    $permissions = explode(',',$user_data['permissions']);    
-    if(in_array($permission,$permissions,true)){
+    $permissions = explode(',', $user_data['permissions']);
+    if (in_array($permission, $permissions, true)) {
         return false;
-    }else{
+    } else {
         return true;
     }
 }
+
 //error if inadequate permissions
-function permission_error($url){
+function permission_error($url) {
     $_SESSION["error_flash"] = "You do not have permissions to access that page";
-    header('Location: '.$url);
-   
+    header('Location: ' . $url);
 }
 
-function date_formatter($date){
-    return date("M d, Y h:i A",strtotime($date));
+function date_formatter($date) {
+    return date("M d, Y h:i A", strtotime($date));
+}
+
+//database fall to retreive products
+function get_category($child_id) {
+    global $conn;
+    $id = sanitize($child_id);
+    $sql = "SELECT p.id AS 'pid', p.category AS 'parent', c.id AS 'cid', c.category AS 'child'
+            FROM categories c
+            INNER JOIN categories p
+            on c.parent = p.id
+            WHERE c.id = '$id'";
+    
+    $query = $conn->query($sql);
+    $category = mysqli_fetch_assoc($query);
+    return $category;
+    
 }

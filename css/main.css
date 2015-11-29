@@ -6,7 +6,18 @@ body
 
 
 
-
+#partial-background{
+    position:relative; 
+    padding:0;
+    margin:0;
+    overflow:hidden;
+    height:500px;
+    background-image: url("../images/background9.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 400px;
+    background-position: top-center;
+    background-attachment: fixed;
+}
 #background{
     position:relative; 
     padding:0;
@@ -50,7 +61,8 @@ body
 }
 
 img.details{
-    margin:15px auto;
+width:90%;
+margin:15px auto;
 }
 
 #footer{

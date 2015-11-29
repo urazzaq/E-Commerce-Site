@@ -18,7 +18,7 @@ if(isset($_SESSION['user_session'])){
     $user_id = $_SESSION['user_session'];
     $query =$conn->query("SELECT * FROM users WHERE id = '$user_id'");
     $user_data = mysqli_fetch_assoc($query);
-    $full_name = explode('',$user_data['full_name']);
+    $full_name = explode(' ',$user_data['full_name']);
     $user_data['first'] = $full_name[0];
     $user_data['last'] = $full_name[1];
     

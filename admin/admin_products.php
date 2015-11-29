@@ -80,7 +80,6 @@ if(isset($_GET['edit'])){
 
 //build add product array 
     if ($_POST){
-        $dbpath =''; 
         $errors = array();
         //form validation
         $required = array('title', 'brand', 'price', 'parent', 'child', 'sizes');
@@ -126,7 +125,9 @@ if(isset($_GET['edit'])){
                 echo display_errors($errors);
             } else {
                 //upload file and insert into database
+                if(!empty($_FILES)){
                 move_uploaded_file($tmpLoc, $uploadPath);
+                }
                 $insertSql = "INSERT INTO products (`title`,`price`,`list_price`,`brand`,`categories`,`image`,`description`,`sizes`) VALUES ('$title','$price','$list_price','$brand','$category','$dbpath','$description','$sizes')";
                 //edit image
                 if(isset($_GET['edit'])){
